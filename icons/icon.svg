@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="pine" x1="0" y1="512" x2="512" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#338062"/>
+      <stop offset="1" stop-color="#214F3A"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="115" fill="url(#pine)"/>
+  <g transform="translate(146 120)">
+    <rect x="0" y="0" width="176" height="272" rx="26" fill="#FBF8F2"/>
+    <g stroke="#2E6E57" stroke-width="20" stroke-linecap="round">
+      <path d="M40 78h96"/>
+      <path d="M40 136h96"/>
+      <path d="M40 194h60"/>
+    </g>
+  </g>
+</svg>
