@@ -14,7 +14,9 @@
  *  3. Zet de Drive-API aan in het Google Cloud-project achter dit script.
  *  4. Kopieer de /exec-URL naar lib/config.js in de app.
  */
-var ALLOWED = 'https://ralphoei.ai/vault';
+// Origin-niveau (met afsluitende / tegen subdomein-trucs): elke pad op je eigen
+// domein mag, dus een latere slug-wijziging vergt geen nieuwe deploy.
+var ALLOWED = 'https://ralphoei.ai/';
 
 function doGet(e) {
   var token = ScriptApp.getOAuthToken();
