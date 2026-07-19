@@ -206,8 +206,19 @@ header{
 .note-body th,.note-body td{border:1px solid var(--border);padding:8px 11px;text-align:left}
 .note-body th{background:var(--surface-2);font-weight:600}
 .note-body img{max-width:100%;height:auto;border-radius:10px;margin:.4em 0}
-.note-body .img-todo{display:inline-block;font-size:13px;color:var(--ink-3);background:var(--surface-2);border:1px dashed var(--border-strong);border-radius:8px;padding:4px 10px;margin:.2em 0}
 .note-body strong{font-weight:600}
+/* Obsidian-smaak: wikilinks, tags, embeds */
+.note-body .wikilink{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft);cursor:pointer}
+.note-body .wikilink:hover{border-bottom-color:var(--accent)}
+.note-body .wikilink.unresolved{color:var(--ink-3);border-bottom:1px dashed var(--border-strong);cursor:default}
+.note-body .tag{display:inline-block;font-family:var(--sans);font-size:.78em;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:.1em .6em;border-radius:999px;line-height:1.5;vertical-align:.06em}
+.note-body .embed-img{display:inline-block;font-size:13px;color:var(--ink-3);background:var(--surface-2);border:1px dashed var(--border-strong);border-radius:8px;padding:4px 10px;margin:.2em 0}
+.note-body .embed-note{color:var(--accent)}
+.note-body .embed-note.missing{color:var(--ink-3)}
+.note-body .embed-note-block{border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:12px 16px;margin:0 0 1em;background:var(--surface)}
+.note-body .embed-note-title{font-family:var(--sans);font-size:13px;color:var(--ink-2);font-weight:600;margin-bottom:6px}
+.note-body .embed-note-body{font-size:.96em}
+.note-body .embed-note-body>*:last-child{margin-bottom:0}
 
 /* ── Sidebar-voet ───────────────────────────────────────── */
 .sidebar-foot{margin-top:20px;padding-top:14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:2px}

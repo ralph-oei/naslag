@@ -35,11 +35,12 @@ test('enhanceTaskLists: [x] wordt afgevinkt, [ ] leeg, gewone li ongemoeid', () 
   assert.equal(enhanceTaskLists('<li>gewoon item</li>'), '<li>gewoon item</li>');
 });
 
-test('markUnresolvedImages: absolute blijft, relatief wordt placeholder', () => {
+test('markUnresolvedImages: absolute blijft, relatief wordt hydrateerbare placeholder', () => {
   const abs = '<img src="https://x.nl/a.png" alt="a">';
   assert.equal(markUnresolvedImages(abs), abs);
   const rel = markUnresolvedImages('<img src="assets/plaatje.png" alt="p">');
-  assert.match(rel, /img-todo/);
+  assert.match(rel, /class="embed-img"/);
+  assert.match(rel, /data-img="assets\/plaatje\.png"/);
   assert.match(rel, /plaatje\.png/);
   assert.doesNotMatch(rel, /<img/);
 });
