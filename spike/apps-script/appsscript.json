@@ -1,0 +1,11 @@
+{
+  "timeZone": "Europe/Amsterdam",
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/drive.readonly"
+  ],
+  "webapp": {
+    "executeAs": "USER_ACCESSING",
+    "access": "MYSELF"
+  }
+}
