@@ -135,6 +135,58 @@ header{
 
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
+/* ── Mappenboom ─────────────────────────────────────────── */
+.tree{font-size:14.5px}
+.tree .row{
+  display:flex;align-items:center;gap:6px;width:100%;text-align:left;
+  border:none;background:none;color:var(--ink-1);font:inherit;cursor:pointer;
+  padding:7px 8px;border-radius:8px;line-height:1.25;
+}
+.tree .row:hover{background:var(--surface-2)}
+.tree .row .tw{color:var(--ink-3);font-size:10px;width:12px;flex:none}
+.tree .row.note .nm{color:var(--ink-2)}
+.tree .row.note.active{background:var(--accent-soft)}
+.tree .row.note.active .nm{color:var(--accent);font-weight:600}
+.tree .row .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tree .tnote{color:var(--ink-3);font-size:13px;padding:6px 8px}
+
+/* ── Mapkiezer ──────────────────────────────────────────── */
+.picker{max-width:52ch;margin:6vh auto 0;animation:rise .4s ease both}
+.picker h2{font-family:var(--serif);font-weight:400;font-size:26px;margin-bottom:8px}
+.picker .picker-sub{color:var(--ink-2);margin-bottom:18px}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-bottom:14px;font-size:13.5px}
+.crumbs .crumb{border:none;background:none;color:var(--accent);font:inherit;cursor:pointer;padding:2px 2px}
+.crumbs .sep{color:var(--ink-3)}
+.folders{display:flex;flex-direction:column;gap:8px}
+.folder-row{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.folder-open{
+  flex:1;text-align:left;border:1px solid var(--border);background:var(--surface);color:var(--ink-1);
+  font:inherit;cursor:pointer;padding:11px 13px;border-radius:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.folder-open:hover{border-color:var(--border-strong)}
+.folder-pick{
+  flex:none;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);
+  font:inherit;font-weight:600;font-size:13px;cursor:pointer;padding:10px 12px;border-radius:10px;white-space:nowrap;
+}
+.folders .muted{color:var(--ink-3);font-size:14px}
+
+/* ── Notitie-weergave (ruw, unit 3) ─────────────────────── */
+.note-view{padding-top:30px;animation:rise .3s ease both}
+.note-title{font-family:var(--serif);font-weight:600;font-size:30px;letter-spacing:-.01em;margin-bottom:18px;line-height:1.15}
+.note-raw{
+  font:14px/1.6 var(--mono);white-space:pre-wrap;word-break:break-word;color:var(--ink-1);
+  background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px;
+}
+
+/* ── Sidebar-voet ───────────────────────────────────────── */
+.sidebar-foot{margin-top:20px;padding-top:14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:2px}
+.sidebar-foot .acct{font-size:12px;color:var(--ink-3);padding:2px 6px 6px;word-break:break-all}
+.sidebar-foot .linkbtn{
+  text-align:left;border:none;background:none;color:var(--ink-2);font:inherit;font-size:13px;
+  cursor:pointer;padding:6px;border-radius:7px;
+}
+.sidebar-foot .linkbtn:hover{background:var(--surface-2);color:var(--accent)}
+
 /* ── Smal scherm: sidebar wordt off-canvas overlay ──────── */
 @media (max-width:819px){
   .icon-btn{display:inline-flex}

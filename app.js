@@ -4,6 +4,8 @@
 import { initNav, capturePwaInstall } from './lib/ui.js';
 import { handleRedirectReturn, currentToken, beginSignIn, clearToken } from './lib/auth.js';
 import { about, AuthError } from './lib/drive.js';
+import { getVaultRoot } from './lib/vault.js';
+import { renderVaultPicker, renderTree, renderSidebarFoot } from './lib/vaultview.js';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -26,25 +28,19 @@ function showSignedOut() {
 }
 
 async function showSignedIn(token) {
-  document.getElementById('tree').textContent = 'Ingelogd. De vault-weergave komt in de volgende stap.';
-  const reader = document.getElementById('reader');
-  reader.innerHTML =
-    '<section class="welcome">' +
-    '<svg class="glyph" viewBox="0 0 48 48" aria-hidden="true"><use href="#naslag-mark"/></svg>' +
-    '<h2 id="greet">Ingelogd</h2>' +
-    '<p id="who">Even je account ophalen&hellip;</p>' +
-    '<button class="cta" id="signout">Uitloggen</button>' +
-    '<div class="fine">De vault-weergave (mappen + notities) bouwen we in de volgende stap.</div>' +
-    '</section>';
-  document.getElementById('signout').addEventListener('click', () => { clearToken(); location.reload(); });
+  const reauth = () => { clearToken(); beginSignIn(); };
 
+  // Account ophalen (bevestigt meteen dat het token nog geldig is).
+  let email = '';
   try {
-    const info = await about(token);
-    const u = info.user || {};
-    document.getElementById('greet').textContent = 'Ingelogd als ' + (u.displayName || 'jij');
-    document.getElementById('who').textContent = u.emailAddress || '';
+    email = (await about(token)).user?.emailAddress || '';
   } catch (err) {
-    if (err instanceof AuthError) { clearToken(); beginSignIn(); return; }
-    document.getElementById('who').textContent = 'Kon je account niet ophalen: ' + err.message;
+    if (err instanceof AuthError) return reauth();
+    // geen net / andere fout: toch doorgaan; de vault-calls tonen de fout wel.
   }
+
+  renderSidebarFoot(email, { token, reauth, onSignOut: () => { clearToken(); location.reload(); } });
+
+  if (getVaultRoot()) renderTree(token, reauth);
+  else renderVaultPicker(token, reauth);
 }
