@@ -1,7 +1,7 @@
 // Naslag — bootstrap. Unit 2: echte login via de Apps Script-makelaar (route B).
 // Token uit een redirect oppikken → ingelogd-staat tonen; anders de login aanbieden.
 // De vault-boom en notitie-weergave volgen in unit 3+.
-import { initNav, capturePwaInstall } from './lib/ui.js';
+import { initNav, capturePwaInstall, initOfflineBanner, initA2HSHint } from './lib/ui.js';
 import { handleRedirectReturn, currentToken, beginSignIn, clearToken } from './lib/auth.js';
 import { about, AuthError } from './lib/drive.js';
 import { getVaultRoot } from './lib/vault.js';
@@ -15,6 +15,8 @@ if ('serviceWorker' in navigator) {
 
 initNav();
 capturePwaInstall();
+initOfflineBanner();
+initA2HSHint();
 
 // Token uit een terugkeer-redirect oppikken, of een bestaande sessie gebruiken.
 handleRedirectReturn();

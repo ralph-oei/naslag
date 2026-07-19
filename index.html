@@ -229,6 +229,17 @@ header{
 }
 .sidebar-foot .linkbtn:hover{background:var(--surface-2);color:var(--accent)}
 
+/* ── Offline-balk + iOS-tip ─────────────────────────────── */
+.offline-banner{background:#F0E2C8;color:#7A5A1E;font-size:13px;text-align:center;padding:7px 12px;border-bottom:1px solid var(--border)}
+@media(prefers-color-scheme:dark){.offline-banner{background:#2E2416;color:#D8B87A}}
+.a2hs{
+  position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 12px);z-index:40;
+  background:var(--ink-1);color:var(--paper);font-size:13.5px;line-height:1.4;padding:12px 42px 12px 16px;
+  border-radius:12px;box-shadow:var(--shadow);animation:rise .4s ease both;
+}
+.a2hs b{font-weight:600}
+.a2hs .a2hs-x{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:none;background:none;color:var(--paper);font-size:15px;cursor:pointer;padding:8px;opacity:.7}
+
 /* ── Smal scherm: sidebar wordt off-canvas overlay ──────── */
 @media (max-width:819px){
   .icon-btn{display:inline-flex}
@@ -268,6 +279,8 @@ header{
   </button>
 </header>
 
+<div id="offline" class="offline-banner" hidden>Offline — je leest gecachte notities.</div>
+
 <div class="layout">
   <aside class="sidebar" id="sidebar">
     <h2>Vault</h2>
@@ -291,6 +304,11 @@ header{
 </div>
 
 <div class="backdrop" id="backdrop"></div>
+
+<div id="a2hs" class="a2hs" hidden>
+  Tip: deel-icoon → <b>Zet op beginscherm</b> voor een echte app-ervaring.
+  <button class="a2hs-x" aria-label="Sluiten">✕</button>
+</div>
 
 <!-- Inline SVG-symbolen (offline-veilig, geen extra request) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">

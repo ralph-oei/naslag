@@ -1,7 +1,7 @@
 // Naslag service worker — precachet de app-schil zodat het icoon offline opent.
 // Vault-inhoud wordt later (unit 7) apart runtime-gecachet in IndexedDB; deze
 // worker dekt alleen de statische schil.
-const SHELL = 'naslag-shell-v5';
+const SHELL = 'naslag-shell-v6';
 const ASSETS = [
   './',
   './index.html',
@@ -14,6 +14,7 @@ const ASSETS = [
   './lib/vaultview.js',
   './lib/vaultindex.js',
   './lib/render.js',
+  './lib/cache.js',
   './vendor/markdown-it.min.js',
   './manifest.webmanifest',
   './icons/icon.svg',
