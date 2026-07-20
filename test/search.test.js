@@ -38,3 +38,36 @@ test('escapeDriveValue: ontsnapt backslash en quote (backslash eerst)', () => {
   assert.equal(escapeDriveValue("d'or"), "d\\'or");
   assert.equal(escapeDriveValue('a\\b'), 'a\\\\b');
 });
+
+import { makeSnippet, filterVaultMarkdown, vaultIdSet } from '../lib/search.js';
+
+test('makeSnippet: venster rond de eerste match + highlight-range klopt', () => {
+  const text = 'regel een\nhier gaat het over prijzen in Shopify automatiseren\nregel drie';
+  const snip = makeSnippet(text, 'prijzen', 24);
+  assert.ok(snip);
+  const [s, e] = snip.ranges[0];
+  assert.equal(snip.text.slice(s, e).toLowerCase(), 'prijzen');
+});
+
+test('makeSnippet: geen match → null', () => {
+  assert.equal(makeSnippet('niets hier', 'xyzzy', 20), null);
+});
+
+test('makeSnippet: matcht op een los woord uit de query', () => {
+  const snip = makeSnippet('over shopify prijzen', 'de prijzen', 20);
+  assert.ok(snip);
+  const [s, e] = snip.ranges[0];
+  assert.equal(snip.text.slice(s, e).toLowerCase(), 'prijzen');
+});
+
+test('vaultIdSet + filterVaultMarkdown: alleen vault-md blijft over', () => {
+  const files = [{ id: 'a', name: 'x.md', path: 'x.md' }, { id: 'c', name: 'y.md', path: 'y.md' }];
+  const vault = vaultIdSet(files);
+  const drive = [
+    { id: 'a', name: 'In vault.md' },      // in vault, md → blijft
+    { id: 'b', name: 'Buiten vault.md' },  // niet in vault → weg
+    { id: 'a', name: 'plaatje.png' },      // in vault maar geen md → weg
+  ];
+  const r = filterVaultMarkdown(drive, vault);
+  assert.deepEqual(r.map((f) => f.name), ['In vault.md']);
+});
