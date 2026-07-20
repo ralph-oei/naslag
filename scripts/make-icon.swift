@@ -35,15 +35,19 @@ func render(size: Int, maskable: Bool) -> CGImage {
     if maskable {
         ctx.translateBy(x: 256, y: 256); ctx.scaleBy(x: 0.84, y: 0.84); ctx.translateBy(x: -256, y: -256)
     }
-    // Notitiekaart.
+    // Notitiekaart — gecentreerd in de 512-ruimte en wat ruimer dan voorheen.
+    let cardW: CGFloat = 210, cardH: CGFloat = 322
+    let cardX = (512 - cardW) / 2      // 151 — horizontaal exact gecentreerd
+    let cardY = (512 - cardH) / 2      // 95  — verticaal exact gecentreerd
     ctx.setFillColor(paper)
-    ctx.addPath(CGPath(roundedRect: CGRect(x: 146, y: 120, width: 176, height: 272),
-        cornerWidth: 26, cornerHeight: 26, transform: nil))
+    ctx.addPath(CGPath(roundedRect: CGRect(x: cardX, y: cardY, width: cardW, height: cardH),
+        cornerWidth: 31, cornerHeight: 31, transform: nil))
     ctx.fillPath()
-    // Drie regels (CG heeft de oorsprong linksonder).
-    ctx.setStrokeColor(line); ctx.setLineWidth(20); ctx.setLineCap(.round)
-    let rows: [(CGFloat, CGFloat)] = [(314, 282), (256, 282), (198, 246)]  // (y, x-eind)
-    for (y, xEnd) in rows { ctx.move(to: CGPoint(x: 186, y: y)); ctx.addLine(to: CGPoint(x: xEnd, y: y)) }
+    // Drie regels (CG heeft de oorsprong linksonder; y=256 is het midden).
+    ctx.setStrokeColor(line); ctx.setLineWidth(22); ctx.setLineCap(.round)
+    let lx = cardX + 48                // symmetrische marge links/rechts
+    let rows: [(CGFloat, CGFloat)] = [(325, 313), (256, 313), (187, 270)]  // (y, x-eind)
+    for (y, xEnd) in rows { ctx.move(to: CGPoint(x: lx, y: y)); ctx.addLine(to: CGPoint(x: xEnd, y: y)) }
     ctx.strokePath()
     ctx.restoreGState()
 

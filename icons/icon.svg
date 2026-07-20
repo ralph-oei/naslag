@@ -6,12 +6,12 @@
     </linearGradient>
   </defs>
   <rect width="512" height="512" rx="115" fill="url(#pine)"/>
-  <g transform="translate(146 120)">
-    <rect x="0" y="0" width="176" height="272" rx="26" fill="#FBF8F2"/>
-    <g stroke="#2E6E57" stroke-width="20" stroke-linecap="round">
-      <path d="M40 78h96"/>
-      <path d="M40 136h96"/>
-      <path d="M40 194h60"/>
+  <g transform="translate(151 95)">
+    <rect x="0" y="0" width="210" height="322" rx="31" fill="#FBF8F2"/>
+    <g stroke="#2E6E57" stroke-width="22" stroke-linecap="round">
+      <path d="M48 92h114"/>
+      <path d="M48 161h114"/>
+      <path d="M48 230h71"/>
     </g>
   </g>
 </svg>
