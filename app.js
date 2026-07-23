@@ -6,6 +6,7 @@ import { handleRedirectReturn, currentToken, beginSignIn, clearToken } from './l
 import { about, AuthError } from './lib/drive.js';
 import { getVaultRoot } from './lib/vault.js';
 import { renderVaultPicker, renderTree, renderSidebarFoot } from './lib/vaultview.js';
+import { initSearch } from './lib/searchview.js';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -43,6 +44,6 @@ async function showSignedIn(token) {
 
   renderSidebarFoot(email, { token, reauth, onSignOut: () => { clearToken(); location.reload(); } });
 
-  if (getVaultRoot()) renderTree(token, reauth);
+  if (getVaultRoot()) { renderTree(token, reauth); initSearch(reauth); }
   else renderVaultPicker(token, reauth);
 }

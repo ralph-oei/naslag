@@ -240,6 +240,35 @@ header{
 .a2hs b{font-weight:600}
 .a2hs .a2hs-x{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:none;background:none;color:var(--paper);font-size:15px;cursor:pointer;padding:8px;opacity:.7}
 
+/* ── Zoeken (command-palette) ────────────────────────────── */
+.search-btn{display:inline-flex}          /* altijd zichtbaar, ook op desktop */
+.search-overlay{position:fixed;inset:0;z-index:50;display:flex;justify-content:center;align-items:flex-start}
+.s-backdrop{position:absolute;inset:0;background:rgba(20,17,10,.42);backdrop-filter:blur(3px);animation:sfade .18s ease both}
+.s-panel{
+  position:relative;z-index:1;margin-top:min(12vh,90px);width:min(92vw,620px);max-height:74vh;
+  display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border-strong);
+  border-radius:16px;box-shadow:var(--shadow);overflow:hidden;animation:srise .22s cubic-bezier(.2,.7,.2,1) both;
+}
+.s-inputrow{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}
+.s-mag{width:19px;height:19px;flex:none;color:var(--ink-3)}
+#searchInput{flex:1;border:none;background:none;color:var(--ink-1);font:16px var(--sans);outline:none}
+#searchInput::placeholder{color:var(--ink-3)}
+.s-close{flex:none;border:1px solid var(--border-strong);background:var(--paper);color:var(--ink-3);
+  font:11px var(--sans);letter-spacing:.04em;text-transform:uppercase;cursor:pointer;padding:5px 8px;border-radius:7px}
+.s-results{overflow-y:auto;overscroll-behavior:contain;padding:8px}
+.s-hint,.s-note{color:var(--ink-3);font-size:13.5px}
+.s-hint{padding:14px 12px}
+.s-group{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:700;padding:12px 10px 6px}
+.s-row{display:block;width:100%;text-align:left;border:none;background:none;color:var(--ink-1);
+  font:inherit;cursor:pointer;padding:9px 10px;border-radius:9px}
+.s-row:hover,.s-row.sel{background:var(--surface-2)}
+.s-title{font-size:14.5px;line-height:1.3}
+.s-path{font-size:11.5px;color:var(--ink-3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s-snip{font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.s-row mark{background:var(--accent-soft);color:var(--accent);border-radius:3px;padding:0 .1em;font-weight:600}
+@keyframes sfade{from{opacity:0}to{opacity:1}}
+@keyframes srise{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
 /* ── Smal scherm: sidebar wordt off-canvas overlay ──────── */
 @media (max-width:819px){
   .icon-btn{display:inline-flex}
@@ -273,6 +302,9 @@ header{
     <span class="tag">je vault, om te lezen</span>
   </div>
   <div class="spacer"></div>
+  <button class="icon-btn search-btn" id="searchBtn" aria-label="Zoeken" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+  </button>
   <button class="signin" id="signinTop" hidden>
     <svg class="g" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-logo"/></svg>
     Inloggen
@@ -308,6 +340,18 @@ header{
 <div id="a2hs" class="a2hs" hidden>
   Tip: deel-icoon → <b>Zet op beginscherm</b> voor een echte app-ervaring.
   <button class="a2hs-x" aria-label="Sluiten">✕</button>
+</div>
+
+<div class="search-overlay" id="search" hidden>
+  <div class="s-backdrop" id="searchBackdrop"></div>
+  <div class="s-panel" role="dialog" aria-modal="true" aria-label="Zoeken in je vault">
+    <div class="s-inputrow">
+      <svg class="s-mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="searchInput" type="text" placeholder="Zoek in je vault…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <button class="s-close" id="searchClose" aria-label="Sluiten">esc</button>
+    </div>
+    <div class="s-results" id="searchResults"></div>
+  </div>
 </div>
 
 <!-- Inline SVG-symbolen (offline-veilig, geen extra request) -->
