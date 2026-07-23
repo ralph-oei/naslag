@@ -42,8 +42,9 @@ async function showSignedIn(token) {
     // geen net / andere fout: toch doorgaan; de vault-calls tonen de fout wel.
   }
 
-  renderSidebarFoot(email, { token, reauth, onSignOut: () => { clearToken(); location.reload(); } });
+  const onVaultPicked = () => initSearch(reauth);
+  renderSidebarFoot(email, { token, reauth, onSignOut: () => { clearToken(); location.reload(); }, onVaultPicked });
 
   if (getVaultRoot()) { renderTree(token, reauth); initSearch(reauth); }
-  else renderVaultPicker(token, reauth);
+  else renderVaultPicker(token, reauth, onVaultPicked);
 }
